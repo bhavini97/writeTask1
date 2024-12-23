@@ -7,7 +7,7 @@ const server = http.createServer((req, res) => {
 
     if (url === '/' && method === 'GET') {
         // Read the file content (if any)
-        fs.readFile('formValues.txt',  (err, data) => {
+        fs.readFile('message.txt',  (err, data) => {
             if (err) {
                 // If there's an error reading the file (other than non-existence)
                 res.statusCode = 500;
@@ -21,7 +21,7 @@ const server = http.createServer((req, res) => {
                 <h1>Submitted Data: ${data}</h1>
                 <form action="/" method="post">
                     <label>Name</label>
-                    <input type="text" name="Username" />
+                    <input type="text" name="message" />
                     <button type="submit">Add</button>
                 </form>
             `);
@@ -40,7 +40,7 @@ const server = http.createServer((req, res) => {
             const formValue = formData.split('=')[1];
 
             // Write the form data to the file
-            fs.writeFile('formValues.txt', formValue, (err) => {
+            fs.writeFile('message.txt', formValue, (err) => {
                 if (err) {
                     console.error('Error writing file:', err);
                     res.statusCode = 500;
@@ -49,7 +49,7 @@ const server = http.createServer((req, res) => {
                 }
 
                 // After submitting, read the file to show the updated value
-                fs.readFile('formValues.txt', 'utf-8', (err, data) => {
+                fs.readFile('message.txt', 'utf-8', (err, data) => {
                     if (err) {
                         res.statusCode = 500;
                         res.end('Internal Server Error');
@@ -62,7 +62,7 @@ const server = http.createServer((req, res) => {
                         <h1>Submitted Data: ${data}</h1>
                         <form action="/" method="post">
                             <label>Name</label>
-                            <input type="text" name="Username" />
+                            <input type="text" name="message" />
                             <button type="submit">Add</button>
                         </form>
                     `);
